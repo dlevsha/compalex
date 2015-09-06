@@ -1,17 +1,17 @@
 # README
 
 ## What is Compalex?
-Compalex is a lightweight script to compare two database schemas. It support MySQL, MS SQL Server and PostgreSQL.
+Compalex is a lightweight script to compare two database schemas. It supports MySQL, MS SQL Server and PostgreSQL.
 
 
 ## Requirements
-Nasgrate is only supported by PHP 5.4 and up with PDO extension.
+Compalex is only supported by PHP 5.4 and up with PDO extension.
 
 ## Installation
 	$ git clone https://github.com/dlevsha/compalex.git
 	$ cd compalex
 	
-Open `config.php` and uncomment required configuration section. For example MySQL section. This section describes two connection each of compared databases.
+Open `config.php` and uncomment required configuration section. For example MySQL section. This section describes two connections each of compared databases.
 
 	// MySQL sample config
 	define('FIRST_DSN',  'mysql://login:password@localhost/compalex_test_1');
@@ -32,7 +32,7 @@ Edit conection name section
 
 	define('FIRST_DATABASE_NAME', 'Production database');
 	define('SECOND_DATABASE_NAME', 'Developer database');	
-This names will display as a database name.
+These names will display as a database name.
 
 Inside `compalex` directory run  
 
@@ -40,7 +40,7 @@ Inside `compalex` directory run
 	
 Now open your browser and type `http://localhost:8000/`
 
-You'll see database schema compare panel.
+You'll see database schema of two compared databases.
 
 -
 ![Database Compare Panel](https://cloud.githubusercontent.com/assets/1639576/9703302/1327b858-5488-11e5-856a-96b139c7b938.png)	
@@ -58,3 +58,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+	
