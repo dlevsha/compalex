@@ -1,11 +1,12 @@
 <?php
+
 class Driver extends BaseDriver
 {
     const
         FOREIGN_KEYS = 'F',
         FUNCTIONS = 'TF',
-        TABLES    = 'U',
-        VIEWS     = 'V',
+        TABLES = 'U',
+        VIEWS = 'V',
         PROCEDURE = 'P';
 
 
@@ -19,22 +20,41 @@ class Driver extends BaseDriver
 
     public function getCompareTables()
     {
-        return $this->_getCompareArray( $this->_getSql(self::TABLES) );
+        return $this->_getCompareArray($this->_getSql(self::TABLES));
+    }
+
+    private function _getSql($type)
+    {
+        return "SELECT DISTINCT
+                    sc.name AS ARRAY_KEY_2,
+                    st.name  + '(' + CAST(sc.length AS varchar(10)) + ')' AS dtype ,
+                    so.name AS ARRAY_KEY_1,
+                    colorder
+                FROM
+                    <<BASENAME>>..syscolumns sc,
+                    <<BASENAME>>..systypes st,
+                    <<BASENAME>>..sysobjects so
+                WHERE
+                    sc.id = so.id AND
+                    sc.xtype = st.xtype AND
+                    so.xtype='{$type}'
+		        ORDER BY
+		            so.name,  colorder";
     }
 
     public function getCompareProcedures()
     {
-        return $this->_getCompareArray( $this->_getSql(self::PROCEDURE) );
+        return $this->_getCompareArray($this->_getSql(self::PROCEDURE));
     }
 
     public function getCompareFunctions()
     {
-        return $this->_getCompareArray( $this->_getSql(self::FUNCTIONS) );
+        return $this->_getCompareArray($this->_getSql(self::FUNCTIONS));
     }
 
     public function getCompareViews()
     {
-        return $this->_getCompareArray( $this->_getSql(self::VIEWS) );
+        return $this->_getCompareArray($this->_getSql(self::VIEWS));
     }
 
     public function getCompareKeys()
@@ -60,26 +80,7 @@ class Driver extends BaseDriver
                 ORDER BY
                      t.name, ind.name, ind.index_id, ic.index_column_id ";
 
-        return $this->_getCompareArray( $query );
-    }
-
-    private function _getSql($type)
-    {
-        return "SELECT DISTINCT
-                    sc.name AS ARRAY_KEY_2,
-                    st.name  + '(' + CAST(sc.length AS varchar(10)) + ')' AS dtype ,
-                    so.name AS ARRAY_KEY_1,
-                    colorder
-                FROM
-                    <<BASENAME>>..syscolumns sc,
-                    <<BASENAME>>..systypes st,
-                    <<BASENAME>>..sysobjects so
-                WHERE
-                    sc.id = so.id AND
-                    sc.xtype = st.xtype AND
-                    so.xtype='{$type}'
-		        ORDER BY
-		            so.name,  colorder";
+        return $this->_getCompareArray($query);
     }
 
 }

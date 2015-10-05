@@ -1,26 +1,104 @@
-table.table { width: 100%; }
-td  { vertical-align: top; }
-tr.header td { border-bottom: 1px solid grey; }
+table.table {
+    width: 100%;
+}
 
-a.sample-data { color: grey; text-decoration: none; border-bottom: 1px dashed grey; }
+td {
+    vertical-align: top;
+}
 
-.panel .sp { text-align: right; }
-.panel a { color: black; text-decoration: none; margin-left: 10px; border-radius: 5px; background-color: #EEEEEE; padding: 3px 10px; }
-.panel a.active { color: #FFFFFF; background-color: #444444; }
+tr.header td {
+    border-bottom: 1px solid grey;
+}
 
-.header h2 { margin-bottom: 2px; }
-.header span { color: grey; font-style: italic; }
+a.sample-data {
+    color: grey;
+    text-decoration: none;
+    border-bottom: 1px dashed grey;
+}
 
-.data-table { width: 100%; }
-.data-table td { padding: 3px 10px; border-bottom: 1px solid grey; }
-.data-table tr:first-child { font-weight: bold; }
+.panel .sp {
+    text-align: right;
+}
 
-.modal { width: 90%; height: 60%; margin-left: 4%; position: fixed; background-color: white; border: 1px solid #c8c8c8; top: 20%;  z-index: 1006; }
-.modal-background { width: 100%; height: 100%; top: 0; left: 0;  background-color: rgba(255, 255, 255, 0.8); position: fixed; overflow: hidden; z-index: 1005; display: none; display: none; }
-.modal-background.visible { display: block; }
-.modal iframe { width: 100%; height: 100%; }
+.panel a {
+    color: black;
+    text-decoration: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #EEEEEE;
+    padding: 3px 10px;
+}
 
-h2.no-records-found { text-align: center; margin-top: 50px;}
-h2.no-records-found u { border-bottom: 1px dashed grey; }
+.panel a.active {
+    color: #FFFFFF;
+    background-color: #444444;
+}
 
-.compare-database-block { width: 60%; margin-left: 20%; }
+.header h2 {
+    margin-bottom: 2px;
+}
+
+.header span {
+    color: grey;
+    font-style: italic;
+}
+
+.data-table {
+    width: 100%;
+}
+
+.data-table td {
+    padding: 3px 10px;
+    border-bottom: 1px solid grey;
+}
+
+.data-table tr:first-child {
+    font-weight: bold;
+}
+
+.modal {
+    width: 90%;
+    height: 60%;
+    margin-left: 4%;
+    position: fixed;
+    background-color: white;
+    border: 1px solid #c8c8c8;
+    top: 20%;
+    z-index: 1006;
+}
+
+.modal-background {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    overflow: hidden;
+    z-index: 1005;
+    display: none;
+    display: none;
+}
+
+.modal-background.visible {
+    display: block;
+}
+
+.modal iframe {
+    width: 100%;
+    height: 100%;
+}
+
+h2.no-records-found {
+    text-align: center;
+    margin-top: 50px;
+}
+
+h2.no-records-found u {
+    border-bottom: 1px dashed grey;
+}
+
+.compare-database-block {
+    width: 60%;
+    margin-left: 20%;
+}
