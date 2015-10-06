@@ -46,6 +46,20 @@ You'll see database schema of two compared databases.
 ![Database Compare Panel](https://cloud.githubusercontent.com/assets/1639576/9703302/1327b858-5488-11e5-856a-96b139c7b938.png)	
 -
 
+You can run this script in terminal (for example, if you don't have direct connection to database).
+
+I recommend [eLinks](https://en.wikipedia.org/wiki/ELinks) (free text-based console web browser) because it supports HTML-formatting and colors.
+
+Install the script and run web-server as described above on your server. 
+
+Then run:
+
+	$ elinks http://localhost:8000
+
+You'll see database schema in your terminal
+
+![Database schema in terminal](https://cloud.githubusercontent.com/assets/1639576/10304652/248de29e-6c24-11e5-863b-c94bf337f47d.png)
+
 LICENSE
 -------
 
