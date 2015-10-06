@@ -1,4 +1,5 @@
 <?php
+
 class Driver extends BaseDriver
 {
 
@@ -41,7 +42,7 @@ class Driver extends BaseDriver
                     TABLE_SCHEMA = \'<<BASENAME>>\'
                   ORDER BY
                     TABLE_NAME, INDEX_NAME, SEQ_IN_INDEX';
-        return $this->_getCompareArray( $query );
+        return $this->_getCompareArray($query);
     }
 
     private function _getTableAndViewResult($type)
@@ -57,7 +58,7 @@ class Driver extends BaseDriver
                     ss.TABLE_TYPE = '{$type}'
                   ORDER BY
                     cl.table_name ";
-        return $this->_getCompareArray( $query );
+        return $this->_getCompareArray($query);
     }
 
     private function _getRoutineResult($type)
@@ -73,7 +74,7 @@ class Driver extends BaseDriver
                     ROUTINE_TYPE = '{$type}'
                   ORDER BY
                     ROUTINE_NAME";
-        return $this->_getCompareArray( $query, true );
+        return $this->_getCompareArray($query, true);
     }
 
 }

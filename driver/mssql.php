@@ -1,11 +1,12 @@
 <?php
+
 class Driver extends BaseDriver
 {
     const
         FOREIGN_KEYS = 'F',
         FUNCTIONS = 'TF',
-        TABLES    = 'U',
-        VIEWS     = 'V',
+        TABLES = 'U',
+        VIEWS = 'V',
         PROCEDURE = 'P';
 
 
@@ -19,22 +20,22 @@ class Driver extends BaseDriver
 
     public function getCompareTables()
     {
-        return $this->_getCompareArray( $this->_getSql(self::TABLES) );
+        return $this->_getCompareArray($this->_getSql(self::TABLES));
     }
 
     public function getCompareProcedures()
     {
-        return $this->_getCompareArray( $this->_getSql(self::PROCEDURE) );
+        return $this->_getCompareArray($this->_getSql(self::PROCEDURE));
     }
 
     public function getCompareFunctions()
     {
-        return $this->_getCompareArray( $this->_getSql(self::FUNCTIONS) );
+        return $this->_getCompareArray($this->_getSql(self::FUNCTIONS));
     }
 
     public function getCompareViews()
     {
-        return $this->_getCompareArray( $this->_getSql(self::VIEWS) );
+        return $this->_getCompareArray($this->_getSql(self::VIEWS));
     }
 
     public function getCompareKeys()
@@ -60,7 +61,7 @@ class Driver extends BaseDriver
                 ORDER BY
                      t.name, ind.name, ind.index_id, ic.index_column_id ";
 
-        return $this->_getCompareArray( $query );
+        return $this->_getCompareArray($query);
     }
 
     private function _getSql($type)

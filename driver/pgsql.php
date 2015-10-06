@@ -1,4 +1,5 @@
 <?php
+
 class Driver extends BaseDriver
 {
     public static function getInstance()
@@ -52,7 +53,7 @@ class Driver extends BaseDriver
                         i.relname';
 
 
-        return $this->_getCompareArray( $query );
+        return $this->_getCompareArray($query);
     }
 
 
@@ -69,7 +70,7 @@ class Driver extends BaseDriver
                     ss.TABLE_TYPE = '{$type}'
                   ORDER BY
                     cl.table_name ";
-        return $this->_getCompareArray( $query );
+        return $this->_getCompareArray($query);
     }
 
     private function _getRoutineResult($type)
@@ -85,6 +86,6 @@ class Driver extends BaseDriver
                     ROUTINE_TYPE = '{$type}'
                   ORDER BY
                     ROUTINE_NAME";
-        return $this->_getCompareArray( $query, true );
+        return $this->_getCompareArray($query, true);
     }
 }

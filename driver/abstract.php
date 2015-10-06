@@ -1,36 +1,37 @@
 <?php
+
 abstract class BaseDriver
 {
     protected $_dsn = array();
 
     protected static $_instance = null;
 
-    protected  function _getFirstConnect()
+    protected function _getFirstConnect()
     {
         return $this->_getConnect(FIRST_DSN, FIRST_BASE_NAME);
     }
 
 
-    protected  function _getSecondConnect()
+    protected function _getSecondConnect()
     {
         return $this->_getConnect(SECOND_DSN, SECOND_BASE_NAME);
     }
 
-    protected function _getConnect( $dsn )
+    protected function _getConnect($dsn)
     {
-        if(!isset( $this->_dsn[$dsn] )){
+        if (!isset($this->_dsn[$dsn])) {
             $pdsn = parse_url($dsn);
 
-            $dsn = DRIVER.':host='.$pdsn['host'].';dbname='.substr($pdsn['path'], 1, 1000).(DRIVER !== 'pgsql'?';charset='.DATABASE_ENCODING:'');
-            $this->_dsn[$dsn] = new PDO($dsn, $pdsn['user'], isset($pdsn['pass'])?$pdsn['pass']:'', array(
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            $dsn = DRIVER . ':host=' . $pdsn['host'] . ';dbname=' . substr($pdsn['path'], 1, 1000) . (DRIVER !== 'pgsql' ? ';charset=' . DATABASE_ENCODING : '');
+            $this->_dsn[$dsn] = new PDO($dsn, $pdsn['user'], isset($pdsn['pass']) ? $pdsn['pass'] : '', array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ));
         }
         return $this->_dsn[$dsn];
     }
 
-    protected function _select( $query , $connect, $baseName )
+    protected function _select($query, $connect, $baseName)
     {
         $out = array();
 
@@ -39,14 +40,14 @@ abstract class BaseDriver
         $stmt = $connect->prepare($query);
         $stmt->execute();
 
-        while ($row = $stmt->fetch() ) {
+        while ($row = $stmt->fetch()) {
             $out[] = $row;
         }
         return $out;
     }
 
 
-    protected function _getCompareArray( $query, $diffMode = false )
+    protected function _getCompareArray($query, $diffMode = false)
     {
 
         $out = array();
@@ -56,13 +57,13 @@ abstract class BaseDriver
         $allTables = array_unique(array_merge(array_keys($fArray), array_keys($sArray)));
         sort($allTables);
 
-        foreach($allTables as $v){
-            $allFields = array_unique(array_merge( array_keys((array) @$fArray[$v]),  array_keys( (array) @$sArray[$v])));
-            foreach($allFields as $f){
-                if(!isset($fArray[$v][$f])){
+        foreach ($allTables as $v) {
+            $allFields = array_unique(array_merge(array_keys((array)@$fArray[$v]), array_keys((array)@$sArray[$v])));
+            foreach ($allFields as $f) {
+                if (!isset($fArray[$v][$f])) {
                     $sArray[$v][$f]['isNew'] = true;
                 }
-                if(!isset($sArray[$v][$f])){
+                if (!isset($sArray[$v][$f])) {
                     $fArray[$v][$f]['isNew'] = true;
                 }
             }
@@ -77,13 +78,13 @@ abstract class BaseDriver
     private function _prepareOutArray($result, $diffMode)
     {
         $mArray = array();
-        foreach( $result as $r){
-            if($diffMode){
-                foreach(explode("\n", $r['ARRAY_KEY_2']) as $pr){
+        foreach ($result as $r) {
+            if ($diffMode) {
+                foreach (explode("\n", $r['ARRAY_KEY_2']) as $pr) {
                     $mArray[$r['ARRAY_KEY_1']][$pr] = $r;
                 }
 
-            }else{
+            } else {
                 $mArray[$r['ARRAY_KEY_1']][$r['ARRAY_KEY_2']] = $r;
             }
         }
@@ -92,71 +93,71 @@ abstract class BaseDriver
 
     public function getCompareTables()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getCompareIndex()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getCompareProcedures()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getCompareFunctions()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getCompareViews()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getCompareKeys()
     {
-        throw new Exception( __METHOD__ .  ' Not work');
+        throw new Exception(__METHOD__ . ' Not work');
     }
 
     public function getTableRows($baseName, $tableName, $rowCount = SAMPLE_DATA_LENGTH)
     {
-        if(!$baseName) throw new Exception('$baseName is not set');
-        if(!$tableName) throw new Exception('$tableName is not set');
-        $rowCount = (int) $rowCount;
+        if (!$baseName) throw new Exception('$baseName is not set');
+        if (!$tableName) throw new Exception('$tableName is not set');
+        $rowCount = (int)$rowCount;
         $tableName = preg_replace("$[^A-z0-9.,-_]$", '', $tableName);
-        switch(DRIVER){
+        switch (DRIVER) {
             case "mssql":
             case "dblib":
-                $query = 'SELECT TOP '.$rowCount.' * FROM '.$baseName.'..'.$tableName;
+                $query = 'SELECT TOP ' . $rowCount . ' * FROM ' . $baseName . '..' . $tableName;
                 break;
             case "pgsql":
             case "mysql":
-                $query = 'SELECT * FROM '.$tableName.' LIMIT '.$rowCount;
+                $query = 'SELECT * FROM ' . $tableName . ' LIMIT ' . $rowCount;
                 break;
 
         }
-        if($baseName === FIRST_BASE_NAME){
+        if ($baseName === FIRST_BASE_NAME) {
             $result = $this->_select($query, $this->_getFirstConnect(), FIRST_BASE_NAME);
-        }else{
+        } else {
             $result = $this->_select($query, $this->_getSecondConnect(), SECOND_BASE_NAME);
         }
 
-        if($result){
+        if ($result) {
             $firstRow = array_shift($result);
 
             $out[] = array_keys($firstRow);
             $out[] = array_values($firstRow);
 
-            foreach($result as $row){
+            foreach ($result as $row) {
                 $out[] = array_values($row);
             }
-        }else{
+        } else {
             $out = array();
         }
 
-        if(DATABASE_ENCODING != 'utf-8' && $out){
+        if (DATABASE_ENCODING != 'utf-8' && $out) {
             // $out = array_map(function($item){ return array_map(function($itm){ return iconv(DATABASE_ENCODING, 'utf-8', $itm); }, $item); }, $out);
         }
 

@@ -26,5 +26,5 @@ define('SAMPLE_DATA_LENGTH', 100);
 
 define('DIR_ROOT', dirname(__FILE__));
 
-define('DRIVER_DIR' ,  DIR_ROOT.'/driver/');
-define('TEMPLATE_DIR', DIR_ROOT.'/template/');
+define('DRIVER_DIR', DIR_ROOT . '/driver/');
+define('TEMPLATE_DIR', DIR_ROOT . '/template/');
