@@ -10,6 +10,15 @@ tr.header td {
     border-bottom: 1px solid grey;
 }
 
+.data h3 {
+    margin-bottom: 2px;
+}
+
+.data .table-additional-info {
+    font-size: 90%;
+    margin-left: 10px;
+}
+
 a.sample-data {
     color: grey;
     text-decoration: none;
@@ -101,4 +110,9 @@ h2.no-records-found u {
 .compare-database-block {
     width: 60%;
     margin-left: 20%;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
 }

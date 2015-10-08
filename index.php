@@ -20,10 +20,11 @@ try {
 
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'tables';
 
-
+    $additionalTableInfo = array();
     switch ($action) {
         case "tables":
             $tables = Driver::getInstance()->getCompareTables();
+            $additionalTableInfo = Driver::getInstance()->getAdditionalTableInfo();
             break;
         case "views":
             $tables = Driver::getInstance()->getCompareViews();
@@ -34,7 +35,7 @@ try {
         case "functions":
             $tables = Driver::getInstance()->getCompareFunctions();
             break;
-        case "keys":
+        case "indexes":
             $tables = Driver::getInstance()->getCompareKeys();
             break;
         case "rows":

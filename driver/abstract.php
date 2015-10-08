@@ -47,12 +47,12 @@ abstract class BaseDriver
     }
 
 
-    protected function _getCompareArray($query, $diffMode = false)
+    protected function _getCompareArray($query, $diffMode = false, $ifOneLevelDiff = false)
     {
 
         $out = array();
-        $fArray = $this->_prepareOutArray($this->_select($query, $this->_getFirstConnect(), FIRST_BASE_NAME), $diffMode);
-        $sArray = $this->_prepareOutArray($this->_select($query, $this->_getSecondConnect(), SECOND_BASE_NAME), $diffMode);
+        $fArray = $this->_prepareOutArray($this->_select($query, $this->_getFirstConnect(), FIRST_BASE_NAME), $diffMode, $ifOneLevelDiff);
+        $sArray = $this->_prepareOutArray($this->_select($query, $this->_getSecondConnect(), SECOND_BASE_NAME), $diffMode, $ifOneLevelDiff);
 
         $allTables = array_unique(array_merge(array_keys($fArray), array_keys($sArray)));
         sort($allTables);
@@ -75,7 +75,7 @@ abstract class BaseDriver
         return $out;
     }
 
-    private function _prepareOutArray($result, $diffMode)
+    private function _prepareOutArray($result, $diffMode, $ifOneLevelDiff)
     {
         $mArray = array();
         foreach ($result as $r) {
@@ -85,7 +85,11 @@ abstract class BaseDriver
                 }
 
             } else {
-                $mArray[$r['ARRAY_KEY_1']][$r['ARRAY_KEY_2']] = $r;
+                if($ifOneLevelDiff){
+                    $mArray[$r['ARRAY_KEY_1']] = $r;
+                }else{
+                    $mArray[$r['ARRAY_KEY_1']][$r['ARRAY_KEY_2']] = $r;
+                }
             }
         }
         return $mArray;
@@ -94,6 +98,11 @@ abstract class BaseDriver
     public function getCompareTables()
     {
         throw new Exception(__METHOD__ . ' Not work');
+    }
+
+    public function getAdditionalTableInfo()
+    {
+        return array();
     }
 
     public function getCompareIndex()

@@ -26,7 +26,7 @@
     <h2 style="color: #820000;">ERROR:<br/>
 
         <div
-            style="border-top: 1px solid red;border-bottom: 1px solid red; padding: 20px;"><?php echo $e->getMessage(); ?></div>
+            style="border-top: 1px solid red;border-bottom: 1px solid red; padding: 20px;"><? echo $e->getMessage(); ?></div>
     </h2>
 
 </div>

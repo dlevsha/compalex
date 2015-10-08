@@ -16,6 +16,22 @@ class Driver extends BaseDriver
         return $this->_getTableAndViewResult('BASE TABLE');
     }
 
+    public function getAdditionalTableInfo()
+    {
+        $type = 'BASE TABLE';
+        $query = "SELECT
+                TABLE_NAME ARRAY_KEY_1,
+                ENGINE engine,
+                TABLE_COLLATION collation
+            FROM
+                information_schema.TABLES
+            WHERE
+                TABLE_SCHEMA = '<<BASENAME>>' AND
+                TABLE_TYPE = '{$type}'";
+        return $this->_getCompareArray($query, false, true);
+
+    }
+
     public function getCompareViews()
     {
         return $this->_getTableAndViewResult('VIEW');

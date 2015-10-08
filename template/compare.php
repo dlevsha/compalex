@@ -13,7 +13,7 @@
 <body>
 <div class="modal-background" onclick="Data.hideTableData(); return false;">
     <div class="modal">
-        <iframe src="" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        <iframe src="" frameborder="0"></iframe>
     </div>
 </div>
 
@@ -24,15 +24,15 @@
     <table class="table">
         <tr class="panel">
             <td>
-                <?php
+                <?
                 switch (DRIVER) {
                     case 'mysql':
                     case 'mssql':
                     case 'dblib':
-                        $buttons = array('tables', 'views', 'procedures', 'functions', 'keys');
+                        $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes');
                         break;
                     case 'pgsql':
-                        $buttons = array('tables', 'views', 'functions', 'keys');
+                        $buttons = array('tables', 'views', 'functions', 'indexes');
                         break;
                 }
 
@@ -51,54 +51,46 @@
         </tr>
         <tr class="header">
             <td>
-                <h2><?php echo FIRST_DATABASE_NAME ?></h2>
-                <span><?php $spath = explode("@", FIRST_DSN);
+                <h2><? echo FIRST_DATABASE_NAME ?></h2>
+                <span><? $spath = explode("@", FIRST_DSN);
                     echo end($spath); ?></span>
             </td>
             <td>
-                <h2><?php echo SECOND_DATABASE_NAME ?></h2>
-                <span><?php $spath = explode("@", SECOND_DSN);
+                <h2><? echo SECOND_DATABASE_NAME ?></h2>
+                <span><? $spath = explode("@", SECOND_DSN);
                     echo end($spath); ?></span>
             </td>
         </tr>
-        <?php foreach ($tables as $tableName => $data) { ?>
+        <? foreach ($tables as $tableName => $data) { ?>
             <tr class="data">
+                <? foreach (array('fArray', 'sArray') as $blockType) { ?>
                 <td>
-                    <h3><?php echo $tableName; ?><sup style="color: red;"><?php echo count($data['fArray']); ?></sup>
-                    </h3>
-                    <?php if ($data['fArray']) { ?>
+                    <h3><? echo $tableName; ?> <sup style="color: red;"><? echo count($data[$blockType]); ?></sup></h3>
+                    <div class="table-additional-info">
+                        <? if(isset($additionalTableInfo[$tableName][$blockType])) {
+                                foreach ($additionalTableInfo[$tableName][$blockType] as $paramKey => $paramValue) {
+                                    if(strpos($paramKey, 'ARRAY_KEY') === false) echo "<b>{$paramKey}</b>: {$paramValue}<br />";
+                                }
+                            }
+                        ?>
+                    </div>
+                    <? if ($data[$blockType]) { ?>
                         <ul style="margin-left: 20px;">
-                            <?php foreach ($data['fArray'] as $fieldName => $tparam) { ?>
-                                <li <?php if (isset($tparam['isNew']) && $tparam['isNew']) {
+                            <? foreach ($data[$blockType] as $fieldName => $tparam) { ?>
+                                <li <? if (isset($tparam['isNew']) && $tparam['isNew']) {
                                     echo 'style="color: red;" class="new" ';
-                                } ?>><b><?php echo $fieldName; ?></b> <?php echo $tparam['dtype']; ?> </li>
-                            <?php } ?>
+                                } ?>><b><? echo $fieldName; ?></b> <? echo $tparam['dtype']; ?> </li>
+                            <? } ?>
                         </ul>
-                    <?php } ?>
-                    <?php if (count($data['fArray']) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
+                    <? } ?>
+                    <? if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
                         target="_blank"
-                        onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo FIRST_BASE_NAME ?>&tableName=<?php echo $tableName; ?>'); return false;"
-                        href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
+                        onclick="Data.getTableData('/index.php?action=rows&baseName=<? echo FIRST_BASE_NAME ?>&tableName=<? echo $tableName; ?>'); return false;"
+                        href="#" class="sample-data">Sample data (<? echo SAMPLE_DATA_LENGTH; ?> rows)</a><? } ?>
                 </td>
-                <td>
-                    <h3><?php echo $tableName; ?> <sup style="color: red;"><?php echo count($data['sArray']); ?></sup>
-                    </h3>
-                    <?php if ($data['sArray']) { ?>
-                        <ul style="margin-left: 20px;">
-                            <?php foreach ($data['sArray'] as $fieldName => $tparam) { ?>
-                                <li <?php if (isset($tparam['isNew']) && $tparam['isNew']) {
-                                    echo 'style="color: red;"  class="new"';
-                                } ?>><b><?php echo $fieldName; ?></b> <?php echo $tparam['dtype']; ?> </li>
-                            <?php } ?>
-                        </ul>
-                    <?php } ?>
-                    <?php if (count($data['sArray']) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
-                        target="_blank"
-                        onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo SECOND_BASE_NAME ?>&tableName=<?php echo $tableName; ?>'); return false;"
-                        href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
-                </td>
+                <? } ?>
             </tr>
-        <?php } ?>
+        <? } ?>
     </table>
 
 </div>
