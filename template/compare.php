@@ -64,7 +64,7 @@
         <? foreach ($tables as $tableName => $data) { ?>
             <tr class="data">
                 <? foreach (array('fArray', 'sArray') as $blockType) { ?>
-                <td>
+                <td class="type-<? echo $_REQUEST['action']; ?>">
                     <h3><? echo $tableName; ?> <sup style="color: red;"><? echo count($data[$blockType]); ?></sup></h3>
                     <div class="table-additional-info">
                         <? if(isset($additionalTableInfo[$tableName][$blockType])) {
@@ -75,7 +75,7 @@
                         ?>
                     </div>
                     <? if ($data[$blockType]) { ?>
-                        <ul style="margin-left: 20px;">
+                        <ul>
                             <? foreach ($data[$blockType] as $fieldName => $tparam) { ?>
                                 <li <? if (isset($tparam['isNew']) && $tparam['isNew']) {
                                     echo 'style="color: red;" class="new" ';

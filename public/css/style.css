@@ -4,10 +4,21 @@ table.table {
 
 td {
     vertical-align: top;
+    width: 50%;
+}
+
+td ul li {
+    max-width: 450px;
 }
 
 tr.header td {
     border-bottom: 1px solid grey;
+}
+
+td.type-procedures ul, td.type-functions ul {
+    list-style: none;
+    font-size: 90%;
+    margin-left: -20px;
 }
 
 .data h3 {
