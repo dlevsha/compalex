@@ -61,10 +61,10 @@ abstract class BaseDriver
             $allFields = array_unique(array_merge(array_keys((array)@$fArray[$v]), array_keys((array)@$sArray[$v])));
             foreach ($allFields as $f) {
                 if (!isset($fArray[$v][$f])) {
-                    $sArray[$v][$f]['isNew'] = true;
+                    if(is_array($sArray[$v][$f])) $sArray[$v][$f]['isNew'] = true;;
                 }
                 if (!isset($sArray[$v][$f])) {
-                    $fArray[$v][$f]['isNew'] = true;
+                    if(is_array($fArray[$v][$f])) $fArray[$v][$f]['isNew'] = true;
                 }
             }
             $out[$v] = array(
