@@ -1,0 +1,19 @@
+{
+  "name": "dlevsha/compalex",
+  "type": "project",
+  "description": "Compalex is a lightweight script to compare two database schemas. It supports MySQL, MS SQL Server and PostgreSQL",
+  "keywords": ["compare database schemas","compare databases","database diff","database schema diff"],
+  "homepage": "https://github.com/dlevsha/compalex",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Levshq Dmitry",
+      "email": "info@compalex.net",
+      "homepage": "http://compalex.net",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  }
+}
