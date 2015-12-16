@@ -130,6 +130,11 @@ abstract class BaseDriver
         throw new Exception(__METHOD__ . ' Not work');
     }
 
+    public function getCompareTriggers()
+    {
+        throw new Exception(__METHOD__ . ' Not work');
+    }
+
     public function getTableRows($baseName, $tableName, $rowCount = SAMPLE_DATA_LENGTH)
     {
         if (!$baseName) throw new Exception('$baseName is not set');

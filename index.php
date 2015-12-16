@@ -38,6 +38,9 @@ try {
         case "indexes":
             $tables = Driver::getInstance()->getCompareKeys();
             break;
+        case "triggers":
+            $tables = Driver::getInstance()->getCompareTriggers();
+            break;
         case "rows":
             $rows = Driver::getInstance()->getTableRows($_REQUEST['baseName'], $_REQUEST['tableName']);
             break;

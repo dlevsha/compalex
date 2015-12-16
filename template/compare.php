@@ -27,6 +27,8 @@
                 <?
                 switch (DRIVER) {
                     case 'mysql':
+                        $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes', 'triggers');
+                        break;
                     case 'mssql':
                     case 'dblib':
                         $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes');

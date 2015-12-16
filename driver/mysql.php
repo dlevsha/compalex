@@ -77,6 +77,19 @@ class Driver extends BaseDriver
         return $this->_getCompareArray($query);
     }
 
+    public function getCompareTriggers()
+    {
+        $query = "SELECT
+                    CONCAT(EVENT_OBJECT_TABLE, '::' , TRIGGER_NAME, ' [', EVENT_MANIPULATION, '/',  ACTION_ORIENTATION, '/', ACTION_TIMING, '] - ', ACTION_ORDER) ARRAY_KEY_1,
+                    ACTION_STATEMENT ARRAY_KEY_2,
+                    '' dtype
+                  FROM
+                    information_schema.TRIGGERS
+                  WHERE
+                    TRIGGER_SCHEMA = '<<BASENAME>>'";
+        return $this->_getCompareArray($query);
+    }
+
     private function _getTableAndViewResult($type)
     {
         $query = "SELECT
