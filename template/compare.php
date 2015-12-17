@@ -24,7 +24,7 @@
     <table class="table">
         <tr class="panel">
             <td>
-                <?
+                <?php
                 switch (DRIVER) {
                     case 'mysql':
                         $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes', 'triggers');
@@ -51,48 +51,50 @@
 
             </td>
         </tr>
+    </table>
+    <table class="table">
         <tr class="header">
-            <td>
-                <h2><? echo FIRST_DATABASE_NAME ?></h2>
-                <span><? $spath = explode("@", FIRST_DSN);
+            <td width="50%">
+                <h2><?php echo DATABASE_NAME ?></h2>
+                <span><?php $spath = explode("@", FIRST_DSN);
                     echo end($spath); ?></span>
             </td>
-            <td>
-                <h2><? echo SECOND_DATABASE_NAME ?></h2>
-                <span><? $spath = explode("@", SECOND_DSN);
+            <td  width="50%">
+                <h2><?php echo DATABASE_NAME_SECONDARY ?></h2>
+                <span><?php $spath = explode("@", SECOND_DSN);
                     echo end($spath); ?></span>
             </td>
         </tr>
-        <? foreach ($tables as $tableName => $data) { ?>
-            <tr class="data">
-                <? foreach (array('fArray', 'sArray') as $blockType) { ?>
-                <td class="type-<? echo $_REQUEST['action']; ?>">
-                    <h3><? echo $tableName; ?> <sup style="color: red;"><? echo count($data[$blockType]); ?></sup></h3>
-                    <div class="table-additional-info">
-                        <? if(isset($additionalTableInfo[$tableName][$blockType])) {
-                                foreach ($additionalTableInfo[$tableName][$blockType] as $paramKey => $paramValue) {
-                                    if(strpos($paramKey, 'ARRAY_KEY') === false) echo "<b>{$paramKey}</b>: {$paramValue}<br />";
-                                }
+    <?php foreach ($tables as $tableName => $data) { ?>
+        <tr class="data">
+            <?php foreach (array('fArray', 'sArray') as $blockType) { ?>
+            <td class="type-<?php echo $_REQUEST['action']; ?>">
+                <h3><?php echo $tableName; ?> <sup style="color: red;"><?php echo count($data[$blockType]); ?></sup></h3>
+                <div class="table-additional-info">
+                    <?php if(isset($additionalTableInfo[$tableName][$blockType])) {
+                            foreach ($additionalTableInfo[$tableName][$blockType] as $paramKey => $paramValue) {
+                                if(strpos($paramKey, 'ARRAY_KEY') === false) echo "<b>{$paramKey}</b>: {$paramValue}<br />";
                             }
-                        ?>
-                    </div>
-                    <? if ($data[$blockType]) { ?>
-                        <ul>
-                            <? foreach ($data[$blockType] as $fieldName => $tparam) { ?>
-                                <li <? if (isset($tparam['isNew']) && $tparam['isNew']) {
-                                    echo 'style="color: red;" class="new" ';
-                                } ?>><b><? echo $fieldName; ?></b> <? echo $tparam['dtype']; ?> </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
-                    <? if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
-                        target="_blank"
-                        onclick="Data.getTableData('/index.php?action=rows&baseName=<? echo FIRST_BASE_NAME ?>&tableName=<? echo $tableName; ?>'); return false;"
-                        href="#" class="sample-data">Sample data (<? echo SAMPLE_DATA_LENGTH; ?> rows)</a><? } ?>
-                </td>
-                <? } ?>
-            </tr>
-        <? } ?>
+                        }
+                    ?>
+                </div>
+                <?php if ($data[$blockType]) { ?>
+                    <ul>
+                        <?php foreach ($data[$blockType] as $fieldName => $tparam) { ?>
+                            <li <?php if (isset($tparam['isNew']) && $tparam['isNew']) {
+                                echo 'style="color: red;" class="new" ';
+                            } ?>><b><?php echo $fieldName; ?></b> <?php echo $tparam['dtype']; ?> </li>
+                        <?php } ?>
+                    </ul>
+                <?php } ?>
+                <?php if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
+                    target="_blank"
+                    onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo FIRST_BASE_NAME ?>&tableName=<?php echo $tableName; ?>'); return false;"
+                    href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
+            </td>
+            <?php } ?>
+        </tr>
+    <?php } ?>
     </table>
 
 </div>

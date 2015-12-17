@@ -4,16 +4,16 @@
     @import url("/public/css/style.css");
 </style>
 
-<? if (count($rows)) { ?>
+<?php if (count($rows)) { ?>
     <table class="data-table">
-        <? foreach ($rows as $row) { ?>
+        <?php foreach ($rows as $row) { ?>
             <tr>
-                <? foreach ($row as $rowItem) { ?>
-                    <td><? echo $rowItem; ?></td>
-                <? } ?>
+                <?php foreach ($row as $rowItem) { ?>
+                    <td><?php echo $rowItem; ?></td>
+                <?php } ?>
             </tr>
-        <? } ?>
+        <?php } ?>
     </table>
-<? } else { ?>
+<?php } else { ?>
     <h2 class="no-records-found"><u>No records found</u></h2>
-<? } ?>
+<?php } ?>
