@@ -13,28 +13,50 @@ Compalex is only supported by PHP 5.4 and up with PDO extension.
 	$ git clone https://github.com/dlevsha/compalex.git
 	$ cd compalex
 	
-Open `config.php` and uncomment required configuration section. For example MySQL section. This section describes two connections each of compared databases.
+Open `.environment`. You'll see configuration params
 
-	// MySQL sample config
-	define('FIRST_DSN',  'mysql://login:password@localhost/compalex_test_1');
-	define('SECOND_DSN', 'mysql://login:password@localhost/compalex_test_2');
-	
-where
+```ini
+[ Main settings ]
+; Possible DATABASE_DRIVER: 'mysql', 'pgsql', 'dblib'.
+; Please use 'dblib' for Microsoft SQL Server
+DATABASE_DRIVER = mysql
+DATABASE_ENCODING = utf8
+SAMPLE_DATA_LENGTH = 100
 
-`mysql` - database driver	
-`login` and `password` - login and password to access your database  
-`localhost` - database host name or IP	
-`compalex_test_1` - database name
+[ Primary connection params ]
+DATABASE_HOST = localhost
+DATABASE_NAME = compalex_dev
+DATABASE_USER = root
+DATABASE_PASSWORD =
+DATABASE_DESCRIPTION = Developer database
 
-If you don't have password your connection will look like
+[ Secondary connection params ]
+DATABASE_HOST_SECONDARY = localhost
+DATABASE_NAME_SECONDARY = compalex_prod
+DATABASE_USER_SECONDARY = root
+DATABASE_PASSWORD_SECONDARY =
+DATABASE_DESCRIPTION_SECONDARY = Production database
+```
 
-	mysql://login@localhost/compalex_test_1
-	
-Edit conection name section
+where 
 
-	define('FIRST_DATABASE_NAME', 'Production database');
-	define('SECOND_DATABASE_NAME', 'Developer database');	
-These names will display as a database name.
+`DATABASE_DRIVER` - database driver, possible value
+
+- `mysql` - for MySQL database
+- `pgsql` - for PostgreSQL database
+- `dblib` - for Microsoft SQL Server database
+
+`[ Primary connection params ]` and `[ Secondary connection params ]`sections describes settings for first and second databases.
+
+Where
+
+- `DATABASE_HOST` and `DATABASE_HOST_SECONDARY`  - database host name or IP for first and second server
+
+- `DATABASE_NAME` and `DATABASE_NAME_SECONDARY` - first and second database name
+
+- `DATABASE_USER` / `DATABASE_PASSWORD`  and `DATABASE_USER_SECONDARY` / `DATABASE_PASSWORD_SECONDARY` - login and password to access your databases 
+
+- `DATABASE_DESCRIPTION` and `DATABASE_DESCRIPTION_SECONDARY` - server description (not necessary). For information only. These names will display as a database name.
 
 Inside `compalex` directory run  
 

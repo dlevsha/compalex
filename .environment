@@ -1,5 +1,5 @@
 [ Main settings ]
-; possible DATABASE_DRIVER: 'mysql', 'pgsql', 'dblib'.
+; Possible DATABASE_DRIVER: 'mysql', 'pgsql', 'dblib'.
 ; Please use 'dblib' for Microsoft SQL Server
 DATABASE_DRIVER = mysql
 DATABASE_ENCODING = utf8
@@ -10,11 +10,11 @@ DATABASE_HOST = localhost
 DATABASE_NAME = compalex_dev
 DATABASE_USER = root
 DATABASE_PASSWORD =
-DATABASE_DESCRIPTION = Production database
+DATABASE_DESCRIPTION = Developer database
 
 [ Secondary connection params ]
 DATABASE_HOST_SECONDARY = localhost
 DATABASE_NAME_SECONDARY = compalex_prod
 DATABASE_USER_SECONDARY = root
 DATABASE_PASSWORD_SECONDARY =
-DATABASE_DESCRIPTION_SECONDARY = Developer database
+DATABASE_DESCRIPTION_SECONDARY = Production database
