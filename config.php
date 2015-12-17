@@ -36,18 +36,3 @@ array_map(function ($name) use ($params) {
 
 define('FIRST_DSN',  DATABASE_DRIVER.'://'.DATABASE_USER.':'.DATABASE_PASSWORD.'@'.DATABASE_HOST.'/'.DATABASE_NAME);
 define('SECOND_DSN',  DATABASE_DRIVER.'://'.DATABASE_USER_SECONDARY.':'.DATABASE_PASSWORD_SECONDARY.'@'.DATABASE_HOST_SECONDARY.'/'.DATABASE_NAME_SECONDARY);
-
-
-// --- Please edit this section --- //
-
-// MSSQL sample config
-// define('FIRST_DSN',  'dblib://login:password@ExternalHost/database1');
-// define('SECOND_DSN', 'dblib://login:password@ExternalHost/database2');
-
-// MySQL sample config
-// define('FIRST_DSN',  'mysql://login:password@localhost/compalex_test_1');
-// define('SECOND_DSN', 'mysql://login:password@localhost/compalex_test_2');
-
-// PGSQL sample config
-// define('FIRST_DSN',  'pgsql://login:password@localhost:5432/database1');
-// define('SECOND_DSN', 'pgsql://login:password@localhost:5432/database2');
