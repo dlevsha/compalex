@@ -3,7 +3,7 @@
 ; Please use 'dblib' for Microsoft SQL Server
 DATABASE_DRIVER = mysql
 DATABASE_ENCODING = utf8
-SAMPLE_DATA_LENGTH = 100s
+SAMPLE_DATA_LENGTH = 100
 
 [ Primary connection params ]
 DATABASE_HOST = localhost
