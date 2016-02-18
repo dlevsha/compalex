@@ -89,7 +89,7 @@
                 <?php } ?>
                 <?php if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
                     target="_blank"
-                    onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo FIRST_BASE_NAME ?>&tableName=<?php echo $tableName; ?>'); return false;"
+                    onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
                     href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
             </td>
             <?php } ?>

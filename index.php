@@ -46,6 +46,12 @@ try {
             break;
     }
 
+
+    $basesName = array(
+        'fArray' => FIRST_BASE_NAME,
+        'sArray' => SECOND_BASE_NAME
+    );
+
     if ($action == 'rows') {
         require_once TEMPLATE_DIR . 'rows.php';
     } else {
