@@ -25,6 +25,7 @@ SAMPLE_DATA_LENGTH = 100
 
 [ Primary connection params ]
 DATABASE_HOST = localhost
+DATABASE_PORT = 3306
 DATABASE_NAME = compalex_dev
 DATABASE_USER = root
 DATABASE_PASSWORD =
@@ -32,6 +33,7 @@ DATABASE_DESCRIPTION = Developer database
 
 [ Secondary connection params ]
 DATABASE_HOST_SECONDARY = localhost
+DATABASE_PORT_SECONDARY = 3306
 DATABASE_NAME_SECONDARY = compalex_prod
 DATABASE_USER_SECONDARY = root
 DATABASE_PASSWORD_SECONDARY =
@@ -51,6 +53,8 @@ where
 Where
 
 - `DATABASE_HOST` and `DATABASE_HOST_SECONDARY`  - database host name or IP for first and second server
+
+- `DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
 
 - `DATABASE_NAME` and `DATABASE_NAME_SECONDARY` - first and second database name
 

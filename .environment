@@ -7,6 +7,7 @@ SAMPLE_DATA_LENGTH = 100
 
 [ Primary connection params ]
 DATABASE_HOST = localhost
+DATABASE_PORT = 3306
 DATABASE_NAME = compalex_dev
 DATABASE_USER = login
 DATABASE_PASSWORD = password
@@ -14,6 +15,7 @@ DATABASE_DESCRIPTION = Developer database
 
 [ Secondary connection params ]
 DATABASE_HOST_SECONDARY = localhost
+DATABASE_PORT_SECONDARY = 3306
 DATABASE_NAME_SECONDARY = compalex_prod
 DATABASE_USER_SECONDARY = login
 DATABASE_PASSWORD_SECONDARY = password
