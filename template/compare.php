@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>COMPALEX - database schema compare tool</title>
-    <script src="/public/js/jquery.min.js"></script>
-    <script src="/public/js/functional.js"></script>
+    <script src="public/js/jquery.min.js"></script>
+    <script src="public/js/functional.js"></script>
     <style type="text/css" media="all">
-        @import url("/public/css/style.css");
+        @import url("public/css/style.css");
     </style>
 </head>
 
@@ -40,7 +40,7 @@
 
                 if (!isset($_REQUEST['action'])) $_REQUEST['action'] = 'tables';
                 foreach ($buttons as $li) {
-                    echo '<a href="/index.php?action=' . $li . '"  ' . ($li == $_REQUEST['action'] ? 'class="active"' : '') . '>' . $li . '</a>&nbsp;';
+                    echo '<a href="index.php?action=' . $li . '"  ' . ($li == $_REQUEST['action'] ? 'class="active"' : '') . '>' . $li . '</a>&nbsp;';
                 }
                 ?>
 
@@ -89,7 +89,7 @@
                 <?php } ?>
                 <?php if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
                     target="_blank"
-                    onclick="Data.getTableData('/index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
+                    onclick="Data.getTableData('index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
                     href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
             </td>
             <?php } ?>
