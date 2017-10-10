@@ -60,11 +60,20 @@ abstract class BaseDriver
         foreach ($allTables as $v) {
             $allFields = array_unique(array_merge(array_keys((array)@$fArray[$v]), array_keys((array)@$sArray[$v])));
             foreach ($allFields as $f) {
-                if (!isset($fArray[$v][$f])) {
-                    if(is_array($sArray[$v][$f])) $sArray[$v][$f]['isNew'] = true;;
-                }
-                if (!isset($sArray[$v][$f])) {
-                    if(is_array($fArray[$v][$f])) $fArray[$v][$f]['isNew'] = true;
+                switch (true) {
+                    case (!isset($fArray[$v][$f])): {
+                        if(is_array($sArray[$v][$f])) $sArray[$v][$f]['isNew'] = true;
+                        break;
+                    }
+                    case (!isset($sArray[$v][$f])): {
+                        if(is_array($fArray[$v][$f])) $fArray[$v][$f]['isNew'] = true;
+                        break;
+                    }
+                    case (isset($fArray[$v][$f]['dtype']) && isset($sArray[$v][$f]['dtype']) && ($fArray[$v][$f]['dtype'] != $sArray[$v][$f]['dtype'])) : {
+                        $fArray[$v][$f]['changeType'] = true;
+                        $sArray[$v][$f]['changeType'] = true;
+                        break;
+                    }
                 }
             }
             $out[$v] = array(

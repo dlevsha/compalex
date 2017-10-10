@@ -83,7 +83,11 @@
                         <?php foreach ($data[$blockType] as $fieldName => $tparam) { ?>
                             <li <?php if (isset($tparam['isNew']) && $tparam['isNew']) {
                                 echo 'style="color: red;" class="new" ';
-                            } ?>><b><?php echo $fieldName; ?></b> <?php echo $tparam['dtype']; ?> </li>
+                            } ?>><b><?php echo $fieldName; ?></b>
+                                <span <?php if (isset($tparam['changeType']) && $tparam['changeType']): ?>style="color: red;" class="new" <?php endif;?>>
+                                    <?php echo $tparam['dtype']; ?>
+                                </span>
+                            </li>
                         <?php } ?>
                     </ul>
                 <?php } ?>
