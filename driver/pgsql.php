@@ -66,7 +66,7 @@ class Driver extends BaseDriver
                   FROM information_schema.columns cl,  information_schema.TABLES ss
                   WHERE
                     cl.TABLE_NAME = ss.TABLE_NAME AND
-                    cl.TABLE_SCHEMA != 'information_schema' AND
+                    cl.TABLE_SCHEMA NOT IN ('pg_catalog', 'information_schema' ) AND
                     ss.TABLE_TYPE = '{$type}'
                   ORDER BY
                     1 --cl.table_name ";
