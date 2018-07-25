@@ -82,7 +82,7 @@ class Driver extends BaseDriver
                   FROM
                     information_schema.ROUTINES
                   WHERE
-                    ROUTINE_SCHEMA != 'information_schema' AND
+                    ROUTINE_SCHEMA NOT IN ('pg_catalog', 'information_schema' ) AND
                     ROUTINE_TYPE = '{$type}'
                   ORDER BY
                     1";
