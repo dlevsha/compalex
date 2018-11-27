@@ -69,7 +69,10 @@
         <tr class="data">
             <?php foreach (array('fArray', 'sArray') as $blockType) { ?>
             <td class="type-<?php echo $_REQUEST['action']; ?>">
-                <h3><?php echo $tableName; ?> <sup style="color: red;"><?php echo count($data[$blockType]); ?></sup></h3>
+                <h3><?php echo $tableName; ?> <sup style="color: red;"><?php 
+                if ($data != null && isset($data[$blockType]) && $data[$blockType] != null) {
+                    echo count($data[$blockType]); 
+                }?></sup></h3>
                 <div class="table-additional-info">
                     <?php if(isset($additionalTableInfo[$tableName][$blockType])) {
                             foreach ($additionalTableInfo[$tableName][$blockType] as $paramKey => $paramValue) {
@@ -91,7 +94,7 @@
                         <?php } ?>
                     </ul>
                 <?php } ?>
-                <?php if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
+                <?php if ($data != null && isset($data[$blockType]) && $data[$blockType] != null && count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
                     target="_blank"
                     onclick="Data.getTableData('index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
                     href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
