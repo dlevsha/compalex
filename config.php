@@ -6,7 +6,7 @@ define('DRIVER_DIR', DIR_ROOT . '/driver/');
 define('TEMPLATE_DIR', DIR_ROOT . '/template/');
 
 if (!file_exists(ENVIRONMENT_FILE)) die('File "' . ENVIRONMENT_FILE . '" not exist. Please create file.');
-$params = parse_ini_file(ENVIRONMENT_FILE);
+$params = parse_ini_file(ENVIRONMENT_FILE, false, INI_SCANNER_RAW);
 
 $requiredParams = array(
     'DATABASE_DRIVER',
