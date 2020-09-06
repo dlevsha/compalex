@@ -60,32 +60,32 @@ class Driver extends BaseDriver
     private function _getTableAndViewResult($type)
     {
         $query = "SELECT
-                    cl.TABLE_NAME \"ARRAY_KEY_1\",
+                    cl.TABLE_SCHEMA || '.' || cl.TABLE_NAME \"ARRAY_KEY_1\",
                     cl.COLUMN_NAME \"ARRAY_KEY_2\",
                     cl.UDT_NAME dtype
                   FROM information_schema.columns cl,  information_schema.TABLES ss
                   WHERE
                     cl.TABLE_NAME = ss.TABLE_NAME AND
-                    cl.TABLE_SCHEMA = 'public' AND
+                    cl.TABLE_SCHEMA NOT IN ('pg_catalog', 'information_schema' ) AND
                     ss.TABLE_TYPE = '{$type}'
                   ORDER BY
-                    cl.table_name ";
+                    1 --cl.table_name ";
         return $this->_getCompareArray($query);
     }
 
     private function _getRoutineResult($type)
     {
         $query = "SELECT
-                    ROUTINE_NAME \"ARRAY_KEY_1\",
+                    ROUTINE_SCHEMA || '.' || ROUTINE_NAME \"ARRAY_KEY_1\",
                     ROUTINE_DEFINITION \"ARRAY_KEY_2\",
                     '' dtype
                   FROM
                     information_schema.ROUTINES
                   WHERE
-                    ROUTINE_SCHEMA = 'public' AND
+                    ROUTINE_SCHEMA NOT IN ('pg_catalog', 'information_schema' ) AND
                     ROUTINE_TYPE = '{$type}'
                   ORDER BY
-                    ROUTINE_NAME";
+                    1";
         return $this->_getCompareArray($query, true);
     }
 }
