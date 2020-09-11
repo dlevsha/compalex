@@ -5,8 +5,12 @@ define('ENVIRONMENT_FILE', DIR_ROOT . '/.environment');
 define('DRIVER_DIR', DIR_ROOT . '/driver/');
 define('TEMPLATE_DIR', DIR_ROOT . '/template/');
 
-if (!file_exists(ENVIRONMENT_FILE)) die('File "' . ENVIRONMENT_FILE . '" not exist. Please create file.');
-$params = parse_ini_file(ENVIRONMENT_FILE, false, INI_SCANNER_RAW);
+if(isset($_ENV['DATABASE_DRIVER']) && isset($_ENV['DATABASE_HOST']) && isset($_ENV['DATABASE_HOST_SECONDARY'])){
+    $params = $_ENV;
+}else{
+    if (!file_exists(ENVIRONMENT_FILE)) die('File "' . ENVIRONMENT_FILE . '" not exist. Please create file.');
+    $params = parse_ini_file(ENVIRONMENT_FILE, false, INI_SCANNER_RAW);
+}
 
 $requiredParams = array(
     'DATABASE_DRIVER',

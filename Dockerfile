@@ -35,7 +35,7 @@ RUN pecl install oci8 \
 
 # -------
 
-#COPY . /usr/src/compalex
+COPY . /usr/src/compalex
 
 WORKDIR /usr/src/compalex
 
