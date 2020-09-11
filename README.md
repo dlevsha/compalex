@@ -82,7 +82,7 @@ Open `.environment`. You'll see configuration params
 
 ```ini
 [ Main settings ]
-; Possible DATABASE_DRIVER: 'mysql', 'pgsql', 'dblib'.
+; Possible DATABASE_DRIVER: 'mysql', 'pgsql', 'dblib', 'oci'.
 ; Please use 'dblib' for Microsoft SQL Server
 DATABASE_DRIVER = mysql
 DATABASE_ENCODING = utf8
