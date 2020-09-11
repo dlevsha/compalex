@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  compalex:
+    image: dlevsha/compalex
+    container_name: compalex
+    environment:
+      - DATABASE_DRIVER=mysql
+      - DATABASE_ENCODING=utf8
+      - SAMPLE_DATA_LENGTH=100
+      - DATABASE_HOST=host.docker.internal
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=compalex_dev
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_DESCRIPTION=Developer database
+      - DATABASE_HOST_SECONDARY=host.docker.internal
+      - DATABASE_PORT_SECONDARY=3306
+      - DATABASE_NAME_SECONDARY=compalex_prod
+      - DATABASE_USER_SECONDARY=root
+      - DATABASE_PASSWORD_SECONDARY=password
+      - DATABASE_DESCRIPTION_SECONDARY=Production database
+    ports:
+      - "8000:8000"

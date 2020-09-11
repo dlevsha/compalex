@@ -5,10 +5,76 @@ Compalex is a lightweight script to compare two database schemas. It supports My
 
 Try [demo](http://demo.compalex.net/) or visit [http://compalex.net/](http://compalex.net/)
 
+## Docker 
+
+The easiest way to use Compalex is to use Docker.
+
+You can build your own container using Dockerfile or use Docker Hub image:
+
+```bash
+docker run -it -e DATABASE_DRIVER='mysql' \
+-e DATABASE_ENCODING='utf8' \
+-e SAMPLE_DATA_LENGTH='100' \
+-e DATABASE_HOST='host.docker.internal' \
+-e DATABASE_PORT='3306' \
+-e DATABASE_NAME='compalex_dev' \
+-e DATABASE_USER='root' \
+-e DATABASE_PASSWORD='password' \
+-e DATABASE_DESCRIPTION='Developer database' \
+-e DATABASE_HOST_SECONDARY='host.docker.internal' \
+-e DATABASE_PORT_SECONDARY='3306' \
+-e DATABASE_NAME_SECONDARY='compalex_prod' \
+-e DATABASE_USER_SECONDARY='root' \
+-e DATABASE_PASSWORD_SECONDARY='password' \
+-e DATABASE_DESCRIPTION_SECONDARY='Production database' \
+-p 8000:8000 dlevsha/compalex
+```
+
+You need to change variables for your own (described bellow).
+
+Then you start container open the browser and go to ```http://localhost:8000```.
+
+Why we use ```host.docker.internal``` instead of ```localhost``` in environment param (if your database run locally)? 
+Because we run script inside container we need to use Host machine IP for connection (for Mac and Windows user).
+
+If you connect to external IP use: ```-e DATABASE_HOST='[Your external IP]'```.
+
+You can also use ```docker-compose.yml```.
+
+```
+version: "3.7"
+
+services:
+  compalex:
+    image: dlevsha/compalex
+    container_name: compalex
+    environment:
+      - DATABASE_DRIVER=mysql
+      - DATABASE_ENCODING=utf8
+      - SAMPLE_DATA_LENGTH=100
+      - DATABASE_HOST=host.docker.internal
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=compalex_dev
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_DESCRIPTION=Developer database
+      - DATABASE_HOST_SECONDARY=host.docker.internal
+      - DATABASE_PORT_SECONDARY=3306
+      - DATABASE_NAME_SECONDARY=compalex_prod
+      - DATABASE_USER_SECONDARY=root
+      - DATABASE_PASSWORD_SECONDARY=password
+      - DATABASE_DESCRIPTION_SECONDARY=Production database
+    ports:
+      - "8000:8000"
+```
+
 ## Requirements
+If you prefer use Compalex as PHP script please read instruction bellow. 
+
 Compalex is only supported by PHP 5.4 and up with PDO extension.
 
 ## Installation
+
 	$ git clone https://github.com/dlevsha/compalex.git
 	$ cd compalex
 	
@@ -46,6 +112,7 @@ where
 - `mysql` - for MySQL database
 - `pgsql` - for PostgreSQL database
 - `dblib` - for Microsoft SQL Server database
+- `oci`   - for Oracle database
 
 `[ Primary connection params ]` and `[ Secondary connection params ]`sections describes settings for first and second databases.
 
