@@ -22,7 +22,14 @@ abstract class BaseDriver
         if (!isset($this->_dsn[$dsn])) {
             $pdsn = parse_url($dsn);
 
-            $dsn = DRIVER . ':host=' . $pdsn['host'] . ';port=' . $pdsn['port'] . ';dbname=' . substr($pdsn['path'], 1, 1000) . (DRIVER !== 'pgsql' ? ';charset=' . DATABASE_ENCODING : '');
+            if (in_array(DRIVER, array('sqlserv', 'dblib', 'mssql'))) {
+                $dsn = DRIVER . ':host=' . $pdsn['host'] . ':' . $pdsn['port'] . ';dbname=' . substr($pdsn['path'], 1, 1000) . ';charset=' . DATABASE_ENCODING;
+            } elseif (in_array(DRIVER, array('oci', 'oci8'))) {
+                $dsn = 'oci:dbname=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=' . $pdsn['host'] . ')(PORT=' . $pdsn['port'] . '))(CONNECT_DATA=(SERVICE_NAME=' . substr($pdsn['path'], 1, 1000) . ')));charset=' . DATABASE_ENCODING;
+            } else {
+                $dsn = DRIVER . ':host=' . $pdsn['host'] . ';port=' . $pdsn['port'] . ';dbname=' . substr($pdsn['path'], 1, 1000) . (DRIVER !== 'pgsql' ? ';charset=' . DATABASE_ENCODING : '');
+            }
+
             $this->_dsn[$dsn] = new PDO($dsn, $pdsn['user'], isset($pdsn['pass']) ? $pdsn['pass'] : '', array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -40,7 +47,10 @@ abstract class BaseDriver
         $stmt = $connect->prepare($query);
         $stmt->execute();
 
-        while ($row = $stmt->fetch()) {
+        while ($row = @$stmt->fetch()) {
+            if(!isset($row['dtype']) && isset($row['DTYPE'])){
+                $row['dtype'] = $row['DTYPE'];
+            }
             $out[] = $row;
         }
         return $out;
@@ -61,15 +71,18 @@ abstract class BaseDriver
             $allFields = array_unique(array_merge(array_keys((array)@$fArray[$v]), array_keys((array)@$sArray[$v])));
             foreach ($allFields as $f) {
                 switch (true) {
-                    case (!isset($fArray[$v][$f])): {
-                        if(is_array($sArray[$v][$f])) $sArray[$v][$f]['isNew'] = true;
+                    case (!isset($fArray[$v][$f])):
+                    {
+                        if (is_array($sArray[$v][$f])) $sArray[$v][$f]['isNew'] = true;
                         break;
                     }
-                    case (!isset($sArray[$v][$f])): {
-                        if(is_array($fArray[$v][$f])) $fArray[$v][$f]['isNew'] = true;
+                    case (!isset($sArray[$v][$f])):
+                    {
+                        if (is_array($fArray[$v][$f])) $fArray[$v][$f]['isNew'] = true;
                         break;
                     }
-                    case (isset($fArray[$v][$f]['dtype']) && isset($sArray[$v][$f]['dtype']) && ($fArray[$v][$f]['dtype'] != $sArray[$v][$f]['dtype'])) : {
+                    case (isset($fArray[$v][$f]['dtype']) && isset($sArray[$v][$f]['dtype']) && ($fArray[$v][$f]['dtype'] != $sArray[$v][$f]['dtype'])) :
+                    {
                         $fArray[$v][$f]['changeType'] = true;
                         $sArray[$v][$f]['changeType'] = true;
                         break;
@@ -94,9 +107,9 @@ abstract class BaseDriver
                 }
 
             } else {
-                if($ifOneLevelDiff){
+                if ($ifOneLevelDiff) {
                     $mArray[$r['ARRAY_KEY_1']] = $r;
-                }else{
+                } else {
                     $mArray[$r['ARRAY_KEY_1']][$r['ARRAY_KEY_2']] = $r;
                 }
             }

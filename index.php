@@ -10,9 +10,11 @@ try {
 
     if (!file_exists(DRIVER_DIR . DRIVER . '.php')) throw new Exception('Driver ' . DRIVER . ' not found');
 
+    $firstDsnSplited = explode('/', FIRST_DSN);
+    $secondDsnSplited = explode('/', SECOND_DSN);
 
-    define('FIRST_BASE_NAME', @end(explode('/', FIRST_DSN)));
-    define('SECOND_BASE_NAME', @end(explode('/', SECOND_DSN)));
+    define('FIRST_BASE_NAME', end($firstDsnSplited));
+    define('SECOND_BASE_NAME', end($secondDsnSplited));
 
     // abstract class
     require_once DRIVER_DIR . 'abstract.php';

@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>COMPALEX - database schema compare tool</title>
-    <script src="public/js/jquery.min.js"></script>
-    <script src="public/js/functional.js"></script>
+    <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/functional.js"></script>
     <style type="text/css" media="all">
-        @import url("public/css/style.css");
+        @import url("/public/css/style.css");
     </style>
 </head>
 
@@ -26,9 +26,12 @@
             <td>
                 <?php
                 switch (DRIVER) {
+                    case 'oci8':
+                    case 'oci':
                     case 'mysql':
                         $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes', 'triggers');
                         break;
+                    case 'sqlserv':
                     case 'mssql':
                     case 'dblib':
                         $buttons = array('tables', 'views', 'procedures', 'functions', 'indexes');
@@ -56,11 +59,13 @@
         <tr class="header">
             <td width="50%">
                 <h2><?php echo DATABASE_NAME ?></h2>
+                <h4 style="color: darkred; margin-top: 2px; "><?php echo DATABASE_DESCRIPTION ?></h4>
                 <span><?php $spath = explode("@", FIRST_DSN);
                     echo end($spath); ?></span>
             </td>
             <td  width="50%">
                 <h2><?php echo DATABASE_NAME_SECONDARY ?></h2>
+                <h4 style="color: darkred; margin-top: 2px; "><?php echo DATABASE_DESCRIPTION_SECONDARY ?></h4>
                 <span><?php $spath = explode("@", SECOND_DSN);
                     echo end($spath); ?></span>
             </td>
@@ -86,7 +91,7 @@
                         <?php foreach ($data[$blockType] as $fieldName => $tparam) { ?>
                             <li <?php if (isset($tparam['isNew']) && $tparam['isNew']) {
                                 echo 'style="color: red;" class="new" ';
-                            } ?>><b><?php echo $fieldName; ?></b>
+                            } ?>><b style="white-space: pre"><?php echo $fieldName; ?></b>
                                 <span <?php if (isset($tparam['changeType']) && $tparam['changeType']): ?>style="color: red;" class="new" <?php endif;?>>
                                     <?php echo $tparam['dtype']; ?>
                                 </span>

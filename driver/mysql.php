@@ -34,22 +34,6 @@ class Driver extends BaseDriver
 
     public function getCompareViews()
     {
-        // show view definition
-        /*
-        $query = "SELECT
-                    TABLE_NAME ARRAY_KEY_1,
-                    VIEW_DEFINITION ARRAY_KEY_2,
-                    '' dtype
-                  FROM
-                    information_schema.VIEWS
-                  WHERE
-                    TABLE_SCHEMA = '<<BASENAME>>'
-                  ORDER BY
-                    TABLE_NAME";
-        $data =  $this->_getCompareArray($query, true);
-        return $data;
-        */
-        // show only fields and it types
         return $this->_getTableAndViewResult('VIEW');
     }
 

@@ -3,7 +3,6 @@
 class Driver extends BaseDriver
 {
     const
-        FOREIGN_KEYS = 'F',
         FUNCTIONS = 'TF',
         TABLES = 'U',
         VIEWS = 'V',
