@@ -48,7 +48,7 @@ abstract class BaseDriver
         $stmt->execute();
 
         while ($row = @$stmt->fetch()) {
-            if(!isset($row['dtype']) && isset($row['DTYPE'])){
+            if (!isset($row['dtype']) && isset($row['DTYPE'])) {
                 $row['dtype'] = $row['DTYPE'];
             }
             $out[] = $row;
@@ -166,12 +166,20 @@ abstract class BaseDriver
         switch (DRIVER) {
             case "mssql":
             case "dblib":
+            case "mssql":
+            case "sqlsrv":
                 $query = 'SELECT TOP ' . $rowCount . ' * FROM ' . $baseName . '..' . $tableName;
                 break;
             case "pgsql":
             case "mysql":
                 $query = 'SELECT * FROM ' . $tableName . ' LIMIT ' . $rowCount;
                 break;
+            case "oci":
+            case "oci8":
+                $query = 'SELECT * FROM ' . $tableName . ' FETCH FIRST ' . $rowCount . ' ROWS ONLY ';
+                break;
+            default:
+                throw new Exception('Select query not set');
 
         }
         if ($baseName === FIRST_BASE_NAME) {

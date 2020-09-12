@@ -5,7 +5,7 @@ Compalex is a lightweight script to compare two database schemas. It supports My
 
 Try [demo](http://demo.compalex.net/) or visit [http://compalex.net/](http://compalex.net/)
 
-## Docker 
+## How to use 
 
 The easiest way to use Compalex is to use Docker.
 

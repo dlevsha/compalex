@@ -18,8 +18,7 @@
 </div>
 
 <div class="compare-database-block">
-    <h1>Compalex</h1>
-
+    <h1>Compalex<span style="color: red;">.net</span></h1>
     <h3>Database schema compare tool</h3>
     <table class="table">
         <tr class="panel">
@@ -108,6 +107,8 @@
         </tr>
     <?php } ?>
     </table>
-
+    <p>&nbsp;</p>
+    <hr />
+    <p>For more information go to <a href="http://compalex.net" target="_blank">compalex.net</a></p>
 </div>
 </body>
