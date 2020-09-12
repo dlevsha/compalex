@@ -118,15 +118,23 @@ where
 
 Where
 
-- `DATABASE_HOST` and `DATABASE_HOST_SECONDARY`  - database host name or IP for first and second server
+`DATABASE_HOST` and `DATABASE_HOST_SECONDARY`  - database host name or IP for first and second server
 
-- `DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
+`DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
 
-- `DATABASE_NAME` and `DATABASE_NAME_SECONDARY` - first and second database name
+Default ports:
 
-- `DATABASE_USER` / `DATABASE_PASSWORD`  and `DATABASE_USER_SECONDARY` / `DATABASE_PASSWORD_SECONDARY` - login and password to access your databases 
+- `3306` - Mysql
+- `5432` - PostgreSQL
+- `1433` - MSSQL
+- `1521` - Oracle
 
-- `DATABASE_DESCRIPTION` and `DATABASE_DESCRIPTION_SECONDARY` - server description (not necessary). For information only. These names will display as a database name.
+
+`DATABASE_NAME` and `DATABASE_NAME_SECONDARY` - first and second database name
+
+`DATABASE_USER` / `DATABASE_PASSWORD`  and `DATABASE_USER_SECONDARY` / `DATABASE_PASSWORD_SECONDARY` - login and password to access your databases 
+
+`DATABASE_DESCRIPTION` and `DATABASE_DESCRIPTION_SECONDARY` - server description (not necessary). For information only. These names will display as a database name.
 
 Inside `compalex` directory run  
 
@@ -153,6 +161,15 @@ Then run:
 You'll see database schema in your terminal
 
 ![Database schema in terminal](https://cloud.githubusercontent.com/assets/1639576/10304652/248de29e-6c24-11e5-863b-c94bf337f47d.png)
+
+Sometimes you have only SSH access to remote database server and you can't open port for external connections. 
+In this case you can use port forwarding via SSH
+
+
+    ssh -L 1522:localhost:1521 [user name]@[remote host 1]
+    ssh -L 1523:localhost:1521 [user name]@[remote host 2]
+
+This command will forward `1521` port from remote servers to local `1522` and `1523` respectively. 
 
 LICENSE
 -------
