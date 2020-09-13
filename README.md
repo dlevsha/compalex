@@ -34,10 +34,15 @@ You need to change variables for your own (described bellow).
 
 Then you start container open the browser and go to ```http://localhost:8000```.
 
-Why we use ```host.docker.internal``` instead of ```localhost``` in environment param (if your database run locally)? 
-Because we run script inside container we need to use Host machine IP for connection (for Mac and Windows user).
+If your compared DB run locally:
 
-If you connect to external IP use: ```-e DATABASE_HOST='[Your external IP]'```.
+- for [MacOS](https://docs.docker.com/docker-for-mac/networking/) and [Windows](https://docs.docker.com/docker-for-windows/networking/) 
+user: use ```host.docker.internal``` instead of ```localhost``` in ```DATABASE_HOST``` and ```DATABASE_HOST_SECONDARY``` param.
+Because we run script inside container we need to use Host machine IP for connection. 
+
+- for [Linux](https://docs.docker.com/network/host/) user: use ```--network host``` option and ```localhost``` in ```DATABASE_HOST``` and ```DATABASE_HOST_SECONDARY``` param.
+
+If you connect to DB outside your machine (external IP) use: ```-e DATABASE_HOST='[Your external IP]'```.
 
 You can also use ```docker-compose.yml```.
 
