@@ -30,9 +30,16 @@ docker run -it -e DATABASE_DRIVER='mysql' \
 -p 8000:8000 dlevsha/compalex
 ```
 
-You need to change variables for your own (described bellow).
+You need to change variables for your own 
 
-Then you start container open the browser and go to ```http://localhost:8000```.
+`DATABASE_DRIVER` - database driver, possible value
+
+- `mysql` - for MySQL database
+- `pgsql` - for PostgreSQL database
+- `dblib` - for Microsoft SQL Server database
+- `oci`   - for Oracle database
+
+`DATABASE_HOST` and `DATABASE_HOST_SECONDARY`  - database host name or IP for first and second server
 
 If your compared DB run locally:
 
@@ -43,6 +50,21 @@ Because we run script inside container we need to use Host machine IP for connec
 - for [Linux](https://docs.docker.com/network/host/) user: use ```--network host``` option and ```localhost``` in ```DATABASE_HOST``` and ```DATABASE_HOST_SECONDARY``` param.
 
 If you connect to DB outside your machine (external IP) use: ```-e DATABASE_HOST='[Your external IP]'```.
+
+- `DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
+
+Default ports for DB:
+
+- `3306` - Mysql
+- `5432` - PostgreSQL
+- `1433` - MSSQL
+- `1521` - Oracle
+
+`DATABASE_NAME` and `DATABASE_NAME_SECONDARY` - first and second database name
+
+`DATABASE_USER` / `DATABASE_PASSWORD`  and `DATABASE_USER_SECONDARY` / `DATABASE_PASSWORD_SECONDARY` - login and password to access your databases 
+
+`DATABASE_DESCRIPTION` and `DATABASE_DESCRIPTION_SECONDARY` - server description (not necessary). For information only. These names will display as a database name.
 
 You can also use ```docker-compose.yml```.
 
