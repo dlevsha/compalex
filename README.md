@@ -51,7 +51,7 @@ Because we run script inside container we need to use Host machine IP for connec
 
 If you connect to DB outside your machine (external IP) use: ```-e DATABASE_HOST='[Your external IP]'```.
 
-- `DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
+`DATABASE_PORT` and `DATABASE_PORT_SECONDARY` - database port for first and second server
 
 Default ports for DB:
 
