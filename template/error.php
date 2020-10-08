@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>COMPALEX - database schema compare tool</title>
-    <script src="/public/js/jquery.min.js"></script>
-    <script src="/public/js/functional.js"></script>
+    <script src="./public/js/jquery.min.js"></script>
+    <script src="./public/js/functional.js"></script>
     <style type="text/css" media="all">
-        @import url("/public/css/style.css");
+        @import url("./public/css/style.css");
     </style>
 </head>
 
