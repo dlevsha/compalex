@@ -201,7 +201,7 @@ This command will forward `1521` port from remote servers to local `1522` and `1
 LICENSE
 -------
 
-Copyright (c) 2015, Levsha Dmitry
+Copyright (c) 2021, Levsha Dmitry
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
