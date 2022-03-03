@@ -21,6 +21,7 @@ abstract class BaseDriver
     {
         if (!isset($this->_dsn[$dsn])) {
             $pdsn = parse_url($dsn);
+            $pdsn['pass'] = urldecode($pdsn['pass']);
 
             if (in_array(DRIVER, array('sqlserv', 'dblib', 'mssql'))) {
                 $dsn = DRIVER . ':host=' . $pdsn['host'] . ':' . $pdsn['port'] . ';dbname=' . substr($pdsn['path'], 1, 1000) . ';charset=' . DATABASE_ENCODING;
