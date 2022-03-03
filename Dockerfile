@@ -26,7 +26,7 @@ RUN cd /var/oracle/clients/ \
     && dpkg -i $BASIC \
     && dpkg -i $DEVEL
 
-RUN pecl install oci8 \
+RUN pecl install oci8-2.2.0 \
     && CURRENT_ORACLE_CLIENT_VERSION=$(ls /usr/lib/oracle/) \
     && export LD_LIBRARY_PATH=/usr/lib/oracle/${CURRENT_ORACLE_CLIENT_VERSION}/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH} \
     && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,/usr/lib/oracle/${CURRENT_ORACLE_CLIENT_VERSION}/client64/lib,${CURRENT_ORACLE_CLIENT_VERSION} \
