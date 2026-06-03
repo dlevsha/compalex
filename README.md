@@ -3,7 +3,6 @@
 ## What is Compalex?
 Compalex is a lightweight script to compare two database schemas. It supports MySQL, MS SQL Server and PostgreSQL.
 
-Try [demo](http://demo.compalex.net/) or visit [http://compalex.net/](http://compalex.net/)
 
 ## How to use 
 
